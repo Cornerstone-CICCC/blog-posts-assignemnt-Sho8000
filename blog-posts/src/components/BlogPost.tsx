@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { useUserInfoContext } from "../context/UserInfo";
 
 interface BlogPostItemProps {
   data:{
@@ -10,12 +11,15 @@ interface BlogPostItemProps {
 }
 
 const BlogPost: FunctionComponent<BlogPostItemProps> = ({data}) =>{
-  console.log('props', data);
+  const {userInfo} = useUserInfoContext();
+
+  const foundUserName = userInfo.find((item)=>{return item.id === data.userId})
+
   return (
     <tbody>
       <tr>
         <td>{data.userId}</td>
-        <td>{data.id}</td>
+        <td>{foundUserName?.name}</td>
         <td>{data.title}</td>
         <td>{data.body}</td>
       </tr>  
